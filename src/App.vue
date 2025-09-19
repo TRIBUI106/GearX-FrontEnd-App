@@ -16,10 +16,10 @@
       class="relative flex flex-col items-center justify-center gap-4 px-4"
     >
       <div class="text-center text-3xl font-bold md:text-7xl dark:text-white">
-        GearX huh ? Sounds weird right ? Incoming soon .
+        GearX huh ? Sounds weird right ?
       </div>
       <div class="py-4 text-base font-extralight md:text-4xl dark:text-neutral-200">
-        And this, might be our biggest project ever.
+        And this, coming soon....
       </div>
     </Motion>
   </AuroraBackground>
