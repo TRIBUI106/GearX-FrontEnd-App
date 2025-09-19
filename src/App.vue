@@ -28,4 +28,5 @@
 <script setup lang="ts">
 import AuroraBackground from '@/components/ui/aurora-background/AuroraBackground.vue'
 import { Motion } from "motion-v";
+console.log('Debugginnn')
 </script>
