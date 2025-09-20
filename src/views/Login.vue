@@ -1,5 +1,5 @@
 <script lang="ts">
-export const description = "A two column login page with a cover image."
+export const description = "GearX Login Form"
 </script>
 
 <script setup lang="ts">
@@ -11,7 +11,7 @@ import LoginForm from "@/components/LoginForm.vue"
   <div class="grid min-h-svh lg:grid-cols-2">
     <div class="flex flex-col gap-4 p-6 md:p-10">
       <div class="flex justify-center gap-2 md:justify-start">
-        <RouterLink to="/" href="#" class="flex items-center gap-2 font-medium" @click="">
+        <RouterLink to="/" href="#" class="flex items-center gap-2 font-medium">
           <div class="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <GalleryVerticalEnd class-name="size-4" />
           </div>
