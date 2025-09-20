@@ -12,9 +12,9 @@ import LoginForm from "@/components/LoginForm.vue"
     <div class="flex flex-col gap-4 p-6 md:p-10">
       <div class="flex justify-center gap-2 md:justify-start">
         <RouterLink to="/" href="#" class="flex items-center gap-2 font-medium">
-          <div class="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+          <!-- <div class="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
             <GalleryVerticalEnd class-name="size-4" />
-          </div>
+          </div> -->
           yeumedevs.
         </RouterLink>
       </div>
@@ -26,7 +26,7 @@ import LoginForm from "@/components/LoginForm.vue"
     </div>
     <div class="relative hidden bg-muted lg:block">
       <img
-        src="../assets/images/landscape-placeholder-svgrepo-com.svg"
+        src="../assets/images/old-london.jpg"
         alt="Image"
         class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
       >
