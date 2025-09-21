@@ -1,9 +1,9 @@
 <script lang="ts">
-export const description = "GearX Login Form"
+export const description = "GearX SignUp Form"
 </script>
 
 <script setup lang="ts">
-import LoginForm from "@/components/LoginForm.vue"
+import SignUpForm from "@/components/SignUpForm.vue"
 </script>
 
 <template>
@@ -19,7 +19,7 @@ import LoginForm from "@/components/LoginForm.vue"
       </div>
       <div class="flex flex-1 items-center justify-center">
         <div class="w-full max-w-xs">
-          <LoginForm />
+          <SignUpForm />
         </div>
       </div>
     </div>

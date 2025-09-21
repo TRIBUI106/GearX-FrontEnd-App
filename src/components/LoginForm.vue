@@ -23,7 +23,7 @@ const props = defineProps<{
     <div class="grid gap-6">
       <div class="grid gap-3">
         <Label for="username">Username</Label>
-        <Input id="username" type="username" placeholder="abcd" required />
+        <Input id="username" type="username" required />
       </div>
       <div class="grid gap-3">
         <div class="flex items-center">
@@ -57,9 +57,9 @@ const props = defineProps<{
     </div>
     <div class="text-center text-sm">
       Don't have an account?
-      <a href="#" class="underline underline-offset-4">
+      <RouterLink to="signup" href="#" class="underline underline-offset-4">
         Sign up
-      </a>
+      </RouterLink>
     </div>
   </form>
 </template>
