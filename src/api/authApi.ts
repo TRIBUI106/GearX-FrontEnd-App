@@ -6,6 +6,10 @@ export const authLogin = async (user: any): Promise<AuthApiResponse> => {
   return await apiService.post<AuthApiResponse>("auth/login", user);
 };
 
+export const authRegister = async (user : any): Promise<AuthApiResponse> => {
+  return await apiService.post<AuthApiResponse>("user/register", user)
+}
+
 export const checkToken = async (token: string | null): Promise<boolean> => {
   if (!token) return false;
 

@@ -1,13 +1,12 @@
 import { defineStore } from "pinia"
 import type { AuthResponse } from "@/types/ApiResponse"
-import { authLogout } from "@/api/authApi"
+import { authLogout, authRegister } from "@/api/authApi"
 import { toast } from "vue-sonner"
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     token: null as string | null,
-    username: null as string | null,
-    expiresAt: null as string | null,
+    data: null as object | null
   }),
 
   getters: {
@@ -15,24 +14,26 @@ export const useAuthStore = defineStore("auth", {
   },
 
   actions: {
+
+    register(user: any) {
+      const res = authRegister(user)
+      console.log(res)
+    },
+
     login(data: AuthResponse) {
       this.token = data.token
-      this.username = data.username
-      this.expiresAt = data.expiresAt
+      this.data = data
 
       localStorage.setItem("token", data.token)
-      localStorage.setItem("username", data.username)
-      localStorage.setItem("expiresAt", data.expiresAt)
+      localStorage.setItem("metadata", JSON.stringify(this.data))
     },
 
     loadFromStorage() {
       const token = localStorage.getItem("token")
-      const username = localStorage.getItem("username")
-      const expiresAt = localStorage.getItem("expiresAt")
+      const metadata = localStorage.getItem("metadata")
 
       if (token) this.token = token
-      if (username) this.username = username
-      if (expiresAt) this.expiresAt = expiresAt
+      if (metadata) this.data = JSON.parse(metadata)
     },
 
     logout(token: string): Promise<boolean> {
@@ -41,11 +42,8 @@ export const useAuthStore = defineStore("auth", {
       toast.success('Đăng xuất thành công !')
 
       this.token = null
-      this.username = null
-      this.expiresAt = null
       localStorage.removeItem("token")
-      localStorage.removeItem("username")
-      localStorage.removeItem("expiresAt")
+      localStorage.removeItem("metadata")
 
       return Promise.resolve(true)
     },
