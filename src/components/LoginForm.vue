@@ -89,7 +89,7 @@ const loginHandler = async () => {
     if (res.success && res.data) {
       authStore.login(res.data)
       toast.success('Đăng nhập thành công !')
-      router.push("/user/profile")
+      router.push("/home")
     } else {
       toast.error(res.message)
     }

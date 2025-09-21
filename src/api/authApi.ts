@@ -1,3 +1,4 @@
+import router from "@/router";
 import { apiService } from "./axiosConfig";
 import type { AuthApiResponse } from "@/types/ApiResponse"
 
@@ -24,7 +25,7 @@ export const authLogout = async (token: string): Promise<boolean> => {
   try {
     const response = await apiService.post<AuthApiResponse>("auth/logout", { token });
     // console.log()
-    window.location.href="/"
+    router.push("/")
     return response.success;
   } catch (error) {
     console.log(error)

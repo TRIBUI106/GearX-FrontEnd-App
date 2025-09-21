@@ -5,7 +5,8 @@ import Placeholder from "@/views/Placeholder.vue";
 import Login from "@/views/Login.vue";
 import SignUp from "@/views/SignUp.vue";
 import Home from "@/views/Home.vue";
-import Profile from "@/views/User/Profile.vue";
+import userProfile from "@/views/User/Profile.vue";
+import userLogout from "@/views/User/Logout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,9 +41,16 @@ const router = createRouter({
     {
       path: "/user/profile",
       name: "userProfile",
-      component: Profile,
-      meta: { requiresAuth: true }, // ✅ cần login
+      component: userProfile,
+      meta: { requiresAuth: true }
     },
+
+    {
+      path: "/user/logout",
+      name: "userLogout",
+      component: userLogout,
+      meta: { requiresAuth: true }
+    }
   ],
 });
 
