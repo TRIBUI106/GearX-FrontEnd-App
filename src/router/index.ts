@@ -6,8 +6,6 @@ import Placeholder from "@/views/Placeholder.vue";
 import Login from "@/views/Login.vue";
 import SignUp from "@/views/SignUp.vue";
 import Home from "@/views/Home.vue";
-import userProfile from "@/views/User/Profile.vue";
-import userLogout from "@/views/User/Logout.vue";
 import MainLayout from "@/views/MainLayout.vue";
 
 const router = createRouter({
@@ -47,26 +45,18 @@ const router = createRouter({
         {
           path: "/user/profile",
           name: "user-profile",
-          component: userProfile,
+          component: () => import('../views/User/Profile.vue'),
           meta: { requiresAuth: true },
+        },
+        {
+          path: "/user/logout",
+          name: "userLogout",
+          component: () => import('../views/User/Logout.vue'),
+          meta: { requiresAuth: true }
         }
       ]
     },
 
-    // user
-    {
-      path: "/user/profile",
-      name: "userProfile",
-      component: userProfile,
-      meta: { requiresAuth: true }
-    },
-
-    {
-      path: "/user/logout",
-      name: "userLogout",
-      component: userLogout,
-      meta: { requiresAuth: true }
-    }
   ],
 });
 
@@ -87,7 +77,7 @@ router.beforeEach(async (to, from, next) => {
     next({ name: "login" });
   } else if (to.meta.guestOnly && isAuthenticated) {
     // đã login 
-    next({ name: "developing" });
+    next({ name: "main" });
   } else {
     next(); // ✅ cho đi bình thường
   }

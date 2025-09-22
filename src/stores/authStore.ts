@@ -1,8 +1,9 @@
 import { defineStore } from "pinia"
-import type { AuthResponse } from "@/types/ApiResponse"
-import { authLogout, authRegister } from "@/api/authApi"
+import type { AuthResponse } from "@/models/ApiResponse"
+import { authLogout } from "@/api/authApi"
 import { toast } from "vue-sonner"
 import Cookies from 'js-cookie'
+import { userFetchData } from "@/api/userApi"
 
 export const useAuthStore = defineStore("auth", {
 
@@ -17,15 +18,9 @@ export const useAuthStore = defineStore("auth", {
 
   actions: {
 
-    register(user: any) {
-      const res = authRegister(user)
-      console.log(res)
-    },
-
-    login(data: AuthResponse) {
+    async login(data: AuthResponse) {
 
       this.token = data.token
-      this.data = data
 
       // Store
       Cookies.set("token", data.token, {
@@ -33,6 +28,9 @@ export const useAuthStore = defineStore("auth", {
         path: '/',
         sameSite: 'Strict'
       })
+
+      const metadata = await userFetchData(data.username)
+      this.data = metadata.data.data
       localStorage.setItem("metadata", JSON.stringify(this.data))
     },
 

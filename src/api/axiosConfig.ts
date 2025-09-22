@@ -1,26 +1,41 @@
-import axios, { type AxiosResponse } from "axios"
+import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios"
 import { BASE_URL } from "@/lib/config"
+import Cookie from 'js-cookie'
+
+// const api = axios.create({
+//   baseURL: BASE_URL,
+//   headers: { "Content-Type": "application/json" },
+// })
 
 const api = axios.create({
   baseURL: BASE_URL,
-  headers: { "Content-Type": "application/json" },
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
+api.interceptors.request.use((config) => {
+  const token = Cookie.get("token")
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
 })
 
 export const apiService = {
-  get: async <T>(url: string): Promise<T> => {
-    const res: AxiosResponse<T> = await api.get(url)
-    return res.data
+  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return api.get(url, config)
   },
-  post: async <T>(url: string, data?: any): Promise<T> => {
-    const res: AxiosResponse<T> = await api.post(url, data)
-    return res.data
+
+  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return api.post(url, data, config)
   },
-  put: async <T>(url: string, data?: any): Promise<T> => {
-    const res: AxiosResponse<T> = await api.put(url, data)
-    return res.data
+
+  put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return api.put(url, data, config)
   },
-  delete: async <T>(url: string, data?: any): Promise<T> => {
-    const res: AxiosResponse<T> = await api.delete(url, { data })
-    return res.data
+
+  delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return api.delete(url, config)
   },
 }
