@@ -84,14 +84,12 @@ const loginHandler = async () => {
   try {
     const res = await authLogin(user.value)
 
-    console.log(res)
-
-    if (res.success && res.data) {
-      authStore.login(res.data)
+    if (res.data.success && res.data.data) {
+      authStore.login(res.data.data)
       toast.success('Đăng nhập thành công !')
       router.push("/home")
     } else {
-      toast.error(res.message)
+      toast.error(res.data.message)
     }
   } catch (error: any) {
     toast.error(error.response?.data?.message || error.message || "Đăng nhập thất bại")

@@ -58,7 +58,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from "vue-sonner"
-import { authRegister } from "@/api/authApi"
+import { userRegister } from "@/api/userApi"
 import router from "@/router"
 
 const props = defineProps<{
@@ -79,10 +79,10 @@ const signupHandler = async () => {
       return;
     }
     
-    const res = await authRegister(user.value)
-    console.log(res.message)
+    const res = await userRegister(user.value)
+    console.log(res.data.message)
 
-    if ( res.success ) {
+    if ( res.data.success ) {
       toast.success('Tạo tài khoản thành công ! Trở về trang đăng nhập sau 5s')
       setTimeout(() => {
         window.location.href='/login'
@@ -90,7 +90,7 @@ const signupHandler = async () => {
       return;
     } 
 
-    toast.error(res.message)
+    toast.error(res.data.message)
 
   } catch (err: any) {
     console.log('Signup error:', err)
