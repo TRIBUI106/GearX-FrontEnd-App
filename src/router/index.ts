@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { checkToken } from "@/api/authApi";
+import Cookie from 'js-cookie'
 
 import Placeholder from "@/views/Placeholder.vue";
 import Login from "@/views/Login.vue";
@@ -7,6 +8,7 @@ import SignUp from "@/views/SignUp.vue";
 import Home from "@/views/Home.vue";
 import userProfile from "@/views/User/Profile.vue";
 import userLogout from "@/views/User/Logout.vue";
+import MainLayout from "@/views/MainLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +16,7 @@ const router = createRouter({
 
     // Home
     {
-      path: "/",
+      path: "/developing",
       name: "Placeholder",
       component: Placeholder,
     },
@@ -22,7 +24,7 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
-      meta: { guestOnly: true }, // 🚫 chặn nếu đã login
+      meta: { guestOnly: true }, // chặn nếu đã login
     },
     {
       path: "/signup",
@@ -31,10 +33,24 @@ const router = createRouter({
       meta: { guestOnly: true },
     },
     {
-      path: "/home",
-      name: "home",
-      component: Home,
-      meta: { requiresAuth: true }
+      path: "/",
+      name: "main",
+      component: MainLayout,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: "/home",
+          name: "home",
+          component: Home,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: "/user/profile",
+          name: "user-profile",
+          component: userProfile,
+          meta: { requiresAuth: true },
+        }
+      ]
     },
 
     // user
@@ -55,7 +71,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const token = localStorage.getItem("token");
+  const token = Cookie.get('token');
   let isAuthenticated = false;
 
   if (token) {
@@ -67,11 +83,11 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    // 🚫 chưa login mà đòi vào trang cần login
+    // chưa login 
     next({ name: "login" });
   } else if (to.meta.guestOnly && isAuthenticated) {
-    // 🚫 đã login mà đòi vào login/signup
-    next({ name: "home" });
+    // đã login 
+    next({ name: "developing" });
   } else {
     next(); // ✅ cho đi bình thường
   }

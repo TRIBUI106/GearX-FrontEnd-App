@@ -2,8 +2,10 @@ import { defineStore } from "pinia"
 import type { AuthResponse } from "@/types/ApiResponse"
 import { authLogout, authRegister } from "@/api/authApi"
 import { toast } from "vue-sonner"
+import Cookies from 'js-cookie'
 
 export const useAuthStore = defineStore("auth", {
+
   state: () => ({
     token: null as string | null,
     data: null as object | null
@@ -21,15 +23,21 @@ export const useAuthStore = defineStore("auth", {
     },
 
     login(data: AuthResponse) {
+
       this.token = data.token
       this.data = data
 
-      localStorage.setItem("token", data.token)
+      // Store
+      Cookies.set("token", data.token, {
+        expires: 7,
+        path: '/',
+        sameSite: 'Strict'
+      })
       localStorage.setItem("metadata", JSON.stringify(this.data))
     },
 
     loadFromStorage() {
-      const token = localStorage.getItem("token")
+      const token = Cookies.get("token")
       const metadata = localStorage.getItem("metadata")
 
       if (token) this.token = token
@@ -42,7 +50,7 @@ export const useAuthStore = defineStore("auth", {
       toast.success('Đăng xuất thành công !')
 
       this.token = null
-      localStorage.removeItem("token")
+      Cookies.remove("token")
       localStorage.removeItem("metadata")
 
       return Promise.resolve(true)
