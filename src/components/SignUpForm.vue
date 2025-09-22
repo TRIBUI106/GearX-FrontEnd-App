@@ -58,7 +58,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from "vue-sonner"
-import { authRegister } from "@/api/authApi"
+import { userRegister } from "@/api/userApi"
 import router from "@/router"
 
 const props = defineProps<{
@@ -74,23 +74,23 @@ const repass = ref('')
 
 const signupHandler = async () => {
   try {
-    if ( repass.value.localeCompare(user.value.password) != 0 ) {
-      toast.error('Mật khẩu không khớp !')
+    if (repass.value !== user.value.password) {
+      toast.error('Mật khẩu không khớp !');
       return;
     }
     
-    const res = await authRegister(user.value)
-    console.log(res.message)
+    const res = await userRegister(user.value)
+    console.log(res.data.message)
 
-    if ( res.success ) {
-      toast.success('Tạo tài khoản thành công !Trở về trang đăng nhập sau 5s')
+    if ( res.data.success ) {
+      toast.success('Tạo tài khoản thành công ! Trở về trang đăng nhập sau 5s')
       setTimeout(() => {
         window.location.href='/login'
       }, 5000);
       return;
     } 
 
-    toast.error(res.message)
+    toast.error(res.data.message)
 
   } catch (err: any) {
     console.log('Signup error:', err)

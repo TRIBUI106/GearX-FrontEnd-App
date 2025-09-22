@@ -148,6 +148,7 @@
   } from "@/components/ui/dropdown-menu"
   import { useAuthStore } from '@/stores/authStore'
   import { RouterLink } from 'vue-router'
+  import router from '@/router'
   
   const isMobileMenuOpen = ref(false)
   
@@ -163,5 +164,6 @@
       if (token) {
           authStore.logout(token);
       }
+      router.push('/')
   }
   </script>
