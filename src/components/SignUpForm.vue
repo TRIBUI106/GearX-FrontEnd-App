@@ -74,8 +74,8 @@ const repass = ref('')
 
 const signupHandler = async () => {
   try {
-    if ( repass.value.localeCompare(user.value.password) != 0 ) {
-      toast.error('Mật khẩu không khớp !')
+    if (repass.value !== user.value.password) {
+      toast.error('Mật khẩu không khớp !');
       return;
     }
     
@@ -83,7 +83,7 @@ const signupHandler = async () => {
     console.log(res.message)
 
     if ( res.success ) {
-      toast.success('Tạo tài khoản thành công !Trở về trang đăng nhập sau 5s')
+      toast.success('Tạo tài khoản thành công ! Trở về trang đăng nhập sau 5s')
       setTimeout(() => {
         window.location.href='/login'
       }, 5000);
