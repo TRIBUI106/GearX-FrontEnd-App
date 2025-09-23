@@ -15,4 +15,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  define: {
+    // Explicitly set __VUE_PROD_DEVTOOLS__ to false for production builds
+    // This ensures devtools support is excluded from the bundle
+    __VUE_PROD_DEVTOOLS__: false,
+  },
 })
