@@ -1,16 +1,16 @@
 export interface User {
-    user_id: number,
+    userId: number,
     username: string,
     email: string,
     password: string,
     phone: string,
     address: string,
-    full_name: string,
-    created_at: string,
-    updated_at: string,
-    created_by: string,
-    updated_by: string,
-    is_active: number,
-    is_deleted: number,
-    avatar_url: string
+    fullName: string,
+    createdAt: string,
+    updatedAt: string,
+    createdBy: string,
+    updatedBy: string,
+    isActive: number,
+    isDeleted: number,
+    avatarUrl: string
 }
