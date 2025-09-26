@@ -6,7 +6,7 @@
             <!-- Logo section -->
             <RouterLink to="/home" class="block text-teal-600" href="#">
               <span class="sr-only">Home</span>
-              <img src="../assets/images/favicon.ico" alt="" class="h-8" viewBox="0 0 28 24" fill="none">
+              <img src="../../assets/images/favicon.ico" alt="" class="h-8" viewBox="0 0 28 24" fill="none">
             </RouterLink>
           </div>
   
@@ -33,7 +33,7 @@
                   >
                     <span class="sr-only">Toggle dashboard menu</span>
                     <img
-                      src="../assets/images/gx-circle.png"
+                      src="../../assets/images/gx-circle.png"
                       alt=""
                       class="size-10 object-cover"
                     />

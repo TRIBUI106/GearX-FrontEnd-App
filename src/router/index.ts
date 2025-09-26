@@ -4,7 +4,7 @@ import Cookie from 'js-cookie'
 
 import Placeholder from "@/views/Placeholder.vue";
 import Home from "@/views/Home.vue";
-import MainLayout from "@/views/MainLayout.vue";
+import MainLayout from "@/views/MainLayout/MainLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -9,3 +9,7 @@ export const userFetchData = async (username: string) => {
 export const userRegister = async (user : any) => {
     return await apiService.post("user/register", user)
 }
+
+export const updateUser = async (user : any, userId : number) => {
+    return await apiService.post(`user/update?userId=${userId}`, user)
+}
