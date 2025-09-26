@@ -3,8 +3,6 @@ import { checkToken } from "@/api/authApi";
 import Cookie from 'js-cookie'
 
 import Placeholder from "@/views/Placeholder.vue";
-import Login from "@/views/Login.vue";
-import SignUp from "@/views/SignUp.vue";
 import Home from "@/views/Home.vue";
 import MainLayout from "@/views/MainLayout.vue";
 
@@ -19,16 +17,19 @@ const router = createRouter({
       component: Placeholder,
     },
     {
-      path: "/login",
-      name: "login",
-      component: Login,
+      path: '/auth/:mode(login|signup|forgot)',
+      name: 'auth',
+      component: () => import('../views/Auth.vue'),
+      props: true,
       meta: { guestOnly: true }, // chặn nếu đã login
     },
     {
-      path: "/signup",
-      name: "signup",
-      component: SignUp,
-      meta: { guestOnly: true },
+      path: '/auth',
+      redirect: { name: 'auth', params: { mode: 'login' } },
+    },
+    {
+      path: '/login',
+      redirect: { name: 'auth', params: { mode: 'login' } },
     },
     {
       path: "/",
@@ -73,8 +74,8 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    // chưa login 
-    next({ name: "login" });
+    // chưa login | sau này đổi thành login, Placeholder là do chưa xong project
+    next({ name: "Placeholder" });
   } else if (to.meta.guestOnly && isAuthenticated) {
     // đã login 
     next({ name: "main" });

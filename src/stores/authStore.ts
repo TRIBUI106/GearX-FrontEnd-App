@@ -17,7 +17,6 @@ export const useAuthStore = defineStore("auth", {
   },
 
   actions: {
-
     async login(data: AuthResponse) {
 
       this.token = data.token

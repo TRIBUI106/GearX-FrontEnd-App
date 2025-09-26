@@ -1,11 +1,3 @@
-<script lang="ts">
-export const description = "GearX SignUp Form"
-</script>
-
-<script setup lang="ts">
-import SignUpForm from "@/components/SignUpForm.vue"
-</script>
-
 <template>
   <div class="grid min-h-svh lg:grid-cols-2">
     <div class="flex flex-col gap-4 p-6 md:p-10">
@@ -19,7 +11,7 @@ import SignUpForm from "@/components/SignUpForm.vue"
       </div>
       <div class="flex flex-1 items-center justify-center">
         <div class="w-full max-w-xs">
-          <SignUpForm />
+          <component :is="currentComponent" />
         </div>
       </div>
     </div>
@@ -32,3 +24,30 @@ import SignUpForm from "@/components/SignUpForm.vue"
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import LoginForm from '@/components/LoginForm.vue'
+import SignUpForm from '@/components/SignUpForm.vue'
+import ForgotPasswordForm from '../components/ForgotPasswordForm.vue'
+
+const route = useRoute()
+const router = useRouter()
+
+const mapModeToComponent = {
+  login: LoginForm,
+  signup: SignUpForm,
+  forgot: ForgotPasswordForm
+} as const
+
+const currentComponent = computed(() => {
+  const mode = String(route.params.mode || 'login')
+  if (!(mode in mapModeToComponent)) {
+    router.replace({ name: 'auth', params: { mode: 'login' } })
+    return LoginForm
+  }
+  return mapModeToComponent[mode as keyof typeof mapModeToComponent]
+})
+
+</script>

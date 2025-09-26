@@ -1,10 +1,17 @@
 import router from "@/router";
 import { apiService } from "./axiosConfig";
-import type { AuthApiResponse } from "@/models/ApiResponse"
 
 export const authLogin = async (user: any) => {
   return await apiService.post("auth/login", user);
 };
+
+export const sendOtp = async (email : string) => {
+  return await apiService.post("auth/forgot/request", { email })
+}
+
+export const resetPassword = async (req : object) => {
+  return await apiService.post("auth/forgot/reset", req)
+}
 
 export const checkToken = async (token: string | null): Promise<boolean> => {
   if (!token) return false;
