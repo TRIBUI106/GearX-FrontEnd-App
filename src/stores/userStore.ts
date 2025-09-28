@@ -33,9 +33,13 @@ export const useUserStore = defineStore("user", () => {
         }
 
 
-        // console.log("tiep tuc")
         const res = await updateUser(userId, user)
-        console.log(res)
+        if ( res ) { 
+            if ( res.data.success ) {
+                toast.success('Cập nhật thông tin thành công cho tài khoản @' + user.username)
+                localStorage.setItem("metadata", JSON.stringify(user))
+            }
+        }
 
     }
 
