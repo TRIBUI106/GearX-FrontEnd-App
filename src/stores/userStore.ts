@@ -33,8 +33,9 @@ export const useUserStore = defineStore("user", () => {
         }
 
 
-        console.log("tiep tuc")
-        // const res = await updateUser(userId, user)
+        // console.log("tiep tuc")
+        const res = await updateUser(userId, user)
+        console.log(res)
 
     }
 
