@@ -9,5 +9,5 @@ export const userRegister = async (user : any) => {
 }
 
 export const updateUser = async (userId : number, user : any) => {
-    return await apiService.post(`user/update?userId=${userId}`, user)
+    return await apiService.put(`user/update?userId=${userId}`, user)
 }

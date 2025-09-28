@@ -107,7 +107,7 @@
               <div class="flex items-center px-3">
                 <div class="flex-shrink-0">
                   <img
-                    src="../assets/images/gx-circle.png"
+                    src="../../assets/images/gx-circle.png"
                     alt=""
                     class="size-8 rounded-full"
                   />
