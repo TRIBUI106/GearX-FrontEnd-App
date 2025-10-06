@@ -36,21 +36,22 @@ const router = createRouter({
       name: "main",
       component: MainLayout,
       meta: { requiresAuth: true },
+      redirect: { name: 'home' },
       children: [
         {
-          path: "/home",
+          path: "home",
           name: "home",
           component: Home,
           meta: { requiresAuth: true },
         },
         {
-          path: "/user/profile",
+          path: "user/profile",
           name: "user-profile",
           component: () => import('../views/User/Profile.vue'),
           meta: { requiresAuth: true },
         },
         {
-          path: "/user/logout",
+          path: "user/logout",
           name: "userLogout",
           component: () => import('../views/User/Logout.vue'),
           meta: { requiresAuth: true }
