@@ -23,7 +23,7 @@ export const checkToken = async (token: string | null): Promise<boolean> => {
     // console.log()
     return response.data.success;
   } catch (error) {
-    console.log(error)
+    console.log(error) 
     return false;
   }
 }
