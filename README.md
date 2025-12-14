@@ -1,3 +1,5 @@
+Lười code FE quá ae :( 
+
 # gearx-frontend
 
 Developing with Vue 3 in Vite.
