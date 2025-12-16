@@ -9,13 +9,17 @@ const router = useRouter();
 
 const products = ref<Product[]>([]);
 
+const isLoading = ref(false);
+
 const navigateToProduct = (productId: number) => {
   router.push({ name: "product-detail", params: { id: productId } });
 };
 
 onMounted(async () => {
+  isLoading.value = true;
   await productStore.initHomePageProducts();
   products.value = productStore.products;
+  isLoading.value = false;
 });
 </script>
 
@@ -25,6 +29,10 @@ onMounted(async () => {
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
     >
+      <div v-if="isLoading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Đang tải sản phẩm...</p>
+      </div>
       <div
         v-for="(p, i) in products"
         :key="p.productId"
