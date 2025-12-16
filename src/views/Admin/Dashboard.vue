@@ -35,6 +35,37 @@
 
         <div class="bg-white rounded-lg shadow p-6">
           <div class="flex items-center">
+            <div class="flex-shrink-0 bg-black rounded-md p-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-shuffle-icon lucide-shuffle"
+              >
+                <path d="m18 14 4 4-4 4" />
+                <path d="m18 2 4 4-4 4" />
+                <path
+                  d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"
+                />
+                <path d="M2 6h1.972a4 4 0 0 1 3.6 2.2" />
+                <path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45" />
+              </svg>
+            </div>
+            <div class="ml-5">
+              <p class="text-sm font-medium text-gray-500">Thương hiệu</p>
+              <p class="text-2xl font-semibold text-gray-900">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center">
             <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
               <svg
                 class="h-6 w-6 text-white"
@@ -76,6 +107,32 @@
             </div>
             <div class="ml-5">
               <p class="text-sm font-medium text-gray-500">Đơn hàng</p>
+              <p class="text-2xl font-semibold text-gray-900">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-orange-500 rounded-md p-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-user-icon lucide-user"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </div>
+            <div class="ml-5">
+              <p class="text-sm font-medium text-gray-500">Người dùng</p>
               <p class="text-2xl font-semibold text-gray-900">0</p>
             </div>
           </div>
