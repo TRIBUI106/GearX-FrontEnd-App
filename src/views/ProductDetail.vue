@@ -115,10 +115,16 @@
                   >{{ product.warrantyMonths }} tháng</span
                 >
               </div>
-              <div v-if="product.attributes" class="spec-item full-width">
-                <span class="spec-label">Thuộc tính:</span>
-                <span class="spec-value">{{ product.attributes }}</span>
-              </div>
+              <template v-if="parseAttributes">
+                <div
+                  v-for="attr in parseAttributes"
+                  :key="attr.key"
+                  class="spec-item"
+                >
+                  <span class="spec-label">{{ attr.key }}:</span>
+                  <span class="spec-value">{{ attr.value }}</span>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -170,6 +176,20 @@ const formatPrice = (price: number): string => {
 const calculateDiscount = (price: number, comparePrice: number): number => {
   return Math.round(((comparePrice - price) / comparePrice) * 100);
 };
+
+const parseAttributes = computed(() => {
+  if (!product.value?.attributes) return null;
+  try {
+    const parsed = JSON.parse(product.value.attributes);
+    return Object.entries(parsed).map(([key, value]) => ({
+      key,
+      value: String(value),
+    }));
+  } catch (error) {
+    console.error("Failed to parse attributes:", error);
+    return null;
+  }
+});
 
 onMounted(async () => {
   const productId = Number(route.params.id);
