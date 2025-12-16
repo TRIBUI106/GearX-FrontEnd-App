@@ -365,8 +365,11 @@ onMounted(async () => {
 
 .compare-amount {
   font-size: 1rem;
-  color: #94a3b8;
   text-decoration: line-through;
+}
+
+.text-danger {
+  color: #dc2626 !important;
 }
 
 .discount-badge {
