@@ -22,7 +22,7 @@ export const useAuthStore = defineStore("auth", {
       this.token = data.token
 
       // Store
-      Cookies.set("token", data.token, {
+      Cookies.set("token", this.token, {
         expires: 7,
         path: '/',
         sameSite: 'Strict'
