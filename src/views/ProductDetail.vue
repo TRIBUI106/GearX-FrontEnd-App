@@ -3,10 +3,11 @@
 <template>
   <div class="product-detail-container">
     <!-- Loading State -->
-    <div v-if="isLoading" class="loading-state">
-      <div class="spinner"></div>
-      <p>Đang tải thông tin sản phẩm...</p>
-    </div>
+    <LoadingSpinner
+      v-if="isLoading"
+      text="Đang tải thông tin sản phẩm..."
+      subtext="Vui lòng đợi trong giây lát"
+    />
 
     <!-- Product Detail Content -->
     <div v-else-if="product" class="product-detail">
@@ -163,6 +164,7 @@
 import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useProductStore } from "@/stores/productStore";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 import type { Product } from "@/models/Product";
 
 const route = useRoute();
