@@ -12,5 +12,6 @@ export interface User {
     updatedBy: string,
     isActive: number,
     isDeleted: number,
-    avatarUrl: string
+    avatarUrl: string,
+    role: number
 }
