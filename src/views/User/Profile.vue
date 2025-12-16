@@ -4,22 +4,22 @@
 
     <img v-bind:src="avatarSrc" class="max-w-2xs my-20 rounded-full hover:opacity-70 hover:scale-110 duration-250">
 
-      <form class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <form class="grid grid-cols-1 sm:grid-cols-2 gap-4" @submit.prevent="updateUserHandler()">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input type="email" class="w-full border rounded-lg px-3 py-2" v-model="user.email"  />
+          <input type="email" class="w-full border rounded-lg px-3 py-2" v-model="user.email" required/>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Họ và tên</label>
-          <input type="text" class="w-full border rounded-lg px-3 py-2" v-model="user.fullName" />
+          <input type="text" class="w-full border rounded-lg px-3 py-2" v-model="user.fullName" required/>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
-          <input type="tel" class="w-full border rounded-lg px-3 py-2" v-model="user.phone"  />
+          <input type="tel" class="w-full border rounded-lg px-3 py-2" v-model="user.phone" required/>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Địa chỉ</label>
-          <input type="text" class="w-full border rounded-lg px-3 py-2" v-model="user.address"  />
+          <input type="text" class="w-full border rounded-lg px-3 py-2" v-model="user.address" required/>
         </div>
 
         <div class="sm:col-span-2 flex justify-end gap-3 pt-2">
@@ -36,6 +36,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { type User } from '@/models/User'
 import placeholderAvatar from '@/assets/images/placeholder.svg'
+import { useUserStore } from '@/stores/userStore';
 
 const user = ref<User>({
   userId: 0,
@@ -65,5 +66,11 @@ onMounted(() => {
     user.value = JSON.parse(savedUser)
   }
 })
+
+const userStore = useUserStore()
+
+const updateUserHandler = async () => {
+  userStore.updateUserData(user.value.userId, user.value)
+}
 
 </script>

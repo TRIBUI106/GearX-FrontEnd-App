@@ -3,10 +3,8 @@ import { checkToken } from "@/api/authApi";
 import Cookie from 'js-cookie'
 
 import Placeholder from "@/views/Placeholder.vue";
-import Login from "@/views/Login.vue";
-import SignUp from "@/views/SignUp.vue";
 import Home from "@/views/Home.vue";
-import MainLayout from "@/views/MainLayout.vue";
+import MainLayout from "@/views/MainLayout/MainLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,37 +17,41 @@ const router = createRouter({
       component: Placeholder,
     },
     {
-      path: "/login",
-      name: "login",
-      component: Login,
+      path: '/auth/:mode(login|signup|forgot)',
+      name: 'auth',
+      component: () => import('../views/Auth.vue'),
+      props: true,
       meta: { guestOnly: true }, // chặn nếu đã login
     },
     {
-      path: "/signup",
-      name: "signup",
-      component: SignUp,
-      meta: { guestOnly: true },
+      path: '/auth',
+      redirect: { name: 'auth', params: { mode: 'login' } },
+    },
+    {
+      path: '/login',
+      redirect: { name: 'auth', params: { mode: 'login' } },
     },
     {
       path: "/",
       name: "main",
       component: MainLayout,
       meta: { requiresAuth: true },
+      redirect: { name: 'home' },
       children: [
         {
-          path: "/home",
+          path: "home",
           name: "home",
           component: Home,
           meta: { requiresAuth: true },
         },
         {
-          path: "/user/profile",
+          path: "user/profile",
           name: "user-profile",
           component: () => import('../views/User/Profile.vue'),
           meta: { requiresAuth: true },
         },
         {
-          path: "/user/logout",
+          path: "user/logout",
           name: "userLogout",
           component: () => import('../views/User/Logout.vue'),
           meta: { requiresAuth: true }
@@ -73,8 +75,8 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    // chưa login 
-    next({ name: "login" });
+    // chưa login | sau này đổi thành login, Placeholder là do chưa xong project
+    next({ name: "Placeholder" });
   } else if (to.meta.guestOnly && isAuthenticated) {
     // đã login 
     next({ name: "main" });

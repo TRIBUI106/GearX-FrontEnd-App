@@ -17,13 +17,13 @@
       <div class="grid gap-3">
         <div class="flex items-center">
           <Label for="password">Password</Label>
-          <a
-            href="#"
+          <RouterLink
+            to="forgot"
             class="ml-auto text-sm underline-offset-4 hover:underline"
             tabindex="-1"
           >
             Forgot your password?
-          </a>
+          </RouterLink>
         </div>
         <Input id="password" type="password" required v-model="user.password" />
       </div>

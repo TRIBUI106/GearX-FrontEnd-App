@@ -1,6 +1,4 @@
 import { apiService } from "./axiosConfig";
-import type { AuthApiResponse } from "@/models/ApiResponse";
-import type { User } from "@/models/User";
 
 export const userFetchData = async (username: string) => {
     return await apiService.get(`user/fetch?username=${username}`)
@@ -8,4 +6,8 @@ export const userFetchData = async (username: string) => {
 
 export const userRegister = async (user : any) => {
     return await apiService.post("user/register", user)
+}
+
+export const updateUser = async (userId : number, user : any) => {
+    return await apiService.put(`user/update?userId=${userId}`, user)
 }
