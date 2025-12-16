@@ -20,34 +20,33 @@
         src="../assets/images/old-london.jpg"
         alt="Image"
         class="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-      >
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import LoginForm from '@/components/LoginForm.vue'
-import SignUpForm from '@/components/SignUpForm.vue'
-import ForgotPasswordForm from '../components/ForgotPasswordForm.vue'
+import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import LoginForm from "@/components/LoginForm.vue";
+import SignUpForm from "@/components/SignUpForm.vue";
+import ForgotPasswordForm from "../components/ForgotPasswordForm.vue";
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
 const mapModeToComponent = {
   login: LoginForm,
   signup: SignUpForm,
-  forgot: ForgotPasswordForm
-} as const
+  forgot: ForgotPasswordForm,
+} as const;
 
 const currentComponent = computed(() => {
-  const mode = String(route.params.mode || 'login')
+  const mode = String(route.params.mode || "login");
   if (!(mode in mapModeToComponent)) {
-    router.replace({ name: 'auth', params: { mode: 'login' } })
-    return LoginForm
+    router.replace({ name: "auth", params: { mode: "login" } });
+    return LoginForm;
   }
-  return mapModeToComponent[mode as keyof typeof mapModeToComponent]
-})
-
+  return mapModeToComponent[mode as keyof typeof mapModeToComponent];
+});
 </script>

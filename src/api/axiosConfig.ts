@@ -35,6 +35,10 @@ export const apiService = {
     return api.put(url, data, config)
   },
 
+  patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return api.patch(url, data, config)
+  },
+
   delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     return api.delete(url, config)
   },

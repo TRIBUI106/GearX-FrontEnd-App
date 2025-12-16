@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { checkToken } from "@/api/authApi";
+import { useAuthStore } from "@/stores/authStore";
 import Cookie from 'js-cookie'
 
 import Placeholder from "@/views/Placeholder.vue";
@@ -45,16 +46,34 @@ const router = createRouter({
           meta: { requiresAuth: true },
         },
         {
+          path: "products",
+          name: "products",
+          component: () => import('@/views/Products.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
           path: "user/profile",
           name: "user-profile",
-          component: () => import('../views/User/Profile.vue'),
+          component: () => import('@/views/User/Profile.vue'),
           meta: { requiresAuth: true },
         },
         {
           path: "user/logout",
           name: "userLogout",
-          component: () => import('../views/User/Logout.vue'),
+          component: () => import('@/views/User/Logout.vue'),
           meta: { requiresAuth: true }
+        },
+        {
+          path: "product/:id",
+          name: "product-detail",
+          component: () => import('@/views/ProductDetail.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
+          path: "admin",
+          name: "admin-dashboard",
+          component: () => import('@/views/Admin/Dashboard.vue'),
+          meta: { requiresAuth: true, requiresAdmin: true }
         }
       ]
     },
@@ -64,25 +83,41 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const token = Cookie.get('token');
+  const authStore = useAuthStore();
   let isAuthenticated = false;
 
   if (token) {
     try {
       isAuthenticated = await checkToken(token);
+      // Load role from storage if not already loaded
+      if (isAuthenticated && authStore.role === null) {
+        authStore.loadFromStorage();
+      }
     } catch (err) {
       isAuthenticated = false;
     }
   }
 
+  // Check authentication
   if (to.meta.requiresAuth && !isAuthenticated) {
-    // chưa login | sau này đổi thành login, Placeholder là do chưa xong project
     next({ name: "Placeholder" });
-  } else if (to.meta.guestOnly && isAuthenticated) {
-    // đã login 
-    next({ name: "main" });
-  } else {
-    next(); // ✅ cho đi bình thường
+    return;
   }
+
+  // Check guest only routes
+  if (to.meta.guestOnly && isAuthenticated) {
+    next({ name: "main" });
+    return;
+  }
+
+  // Check admin access
+  if (to.meta.requiresAdmin && !authStore.isAdmin) {
+    console.warn('Access denied: Admin role required');
+    next({ name: "home" }); // Redirect to home if not admin
+    return;
+  }
+
+  next(); // ✅ Allow navigation
 });
 
 export default router;
