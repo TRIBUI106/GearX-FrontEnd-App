@@ -39,15 +39,15 @@
               class="price-compare"
             >
               <span class="compare-label">Giá gốc:</span>
-              <span class="compare-amount"
+              <span class="compare-amount text-danger"
                 >{{ product.currencyCode }}
                 {{ formatPrice(product.compareAtPrice) }}</span
               >
-              <span class="discount-badge"
+              <!-- <span class="discount-badge"
                 >-{{
                   calculateDiscount(product.price, product.compareAtPrice)
                 }}%</span
-              >
+              > -->
             </div>
           </div>
 
