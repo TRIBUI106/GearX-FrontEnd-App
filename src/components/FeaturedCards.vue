@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { useProductStore } from "@/stores/productStore";
+import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 import type { Product } from "@/models/Product";
 
 const productStore = useProductStore();
+const router = useRouter();
 
 const products = ref<Product[]>([]);
+
+const navigateToProduct = (productId: number) => {
+  router.push({ name: "product-detail", params: { id: productId } });
+};
 
 onMounted(async () => {
   await productStore.initHomePageProducts();
@@ -22,6 +28,7 @@ onMounted(async () => {
       <div
         v-for="(p, i) in products"
         :key="p.productId"
+        @click="navigateToProduct(p.productId)"
         class="bg-white rounded-xl shadow hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
       >
         <img
