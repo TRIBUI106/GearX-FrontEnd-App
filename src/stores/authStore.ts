@@ -35,11 +35,11 @@ export const useAuthStore = defineStore("auth", {
 
       // Decode JWT to get role
       const decodedToken = jwtDecode(this.token) as any
+      const username = decodedToken.username
       this.role = decodedToken.role
-      console.log('User role:', this.role)
 
       // Fetch and store user metadata
-      const metadata = await userFetchData(data.username)
+      const metadata = await userFetchData(username)
       this.data = metadata.data.data
       localStorage.setItem("metadata", JSON.stringify(this.data))
       if (this.role !== null) {

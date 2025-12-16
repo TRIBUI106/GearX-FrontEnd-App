@@ -110,7 +110,7 @@
                 <DropdownMenuItem v-if="authStore.isAdmin">
                   <RouterLink
                     to="/admin"
-                    class="flex w-full items-center gap-2 text-blue-600"
+                    class="flex w-full items-center gap-2"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -260,6 +260,13 @@
                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                 >My profile</RouterLink
               >
+              <!-- Admin Dashboard Link (Mobile) -->
+              <RouterLink
+                v-if="authStore.isAdmin"
+                to="/admin"
+                class="block rounded-md px-3 py-2 text-base font-medium hover:bg-blue-50"
+                >Trang Quản Trị</RouterLink
+              >
               <button
                 @click="handleLogout"
                 class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-red-700 hover:bg-red-50"
@@ -291,7 +298,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Cookie from "js-cookie";
 import {
   DropdownMenu,
@@ -307,6 +314,14 @@ import router from "@/router";
 const isMobileMenuOpen = ref(false);
 
 const authStore = useAuthStore();
+
+// Load role from storage on mount
+onMounted(() => {
+  if (authStore.role === null) {
+    authStore.loadFromStorage();
+  }
+  // console.log("Current role:", authStore.role, "isAdmin:", authStore.isAdmin);
+});
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
