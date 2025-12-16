@@ -27,7 +27,9 @@
         </div>
         <Input id="password" type="password" required v-model="user.password" />
       </div>
-      <Button type="submit" class-name="w-full" :disabled="isSubmitting"> Login </Button>
+      <Button type="submit" class-name="w-full" :disabled="isSubmitting">
+        Login
+      </Button>
       <div
         class="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t"
       >
@@ -74,27 +76,27 @@ const user = ref({
   password: "",
 });
 
-const isSubmitting = ref(false)
+const isSubmitting = ref(false);
 
-
-const authStore = useAuthStore()
+const authStore = useAuthStore();
 
 const loginHandler = async () => {
-  isSubmitting.value = true
+  isSubmitting.value = true;
   try {
-    const res = await authLogin(user.value)
+    const res = await authLogin(user.value);
 
     if (res.data.success && res.data.data) {
-      authStore.login(res.data.data)
-      toast.success('Đăng nhập thành công !')
-      router.push("/home")
+      authStore.login(res.data.data);
+      toast.success("Đăng nhập thành công !");
+      router.push("/home");
     } else {
-      toast.error(res.data.message)
+      toast.error(res.data.message);
     }
   } catch (error: any) {
-    toast.error(error.response?.data?.message || error.message || "Đăng nhập thất bại")
+    toast.error(
+      error.response?.data?.message || error.message || "Đăng nhập thất bại"
+    );
   }
-  isSubmitting.value = false
-}
-
+  isSubmitting.value = false;
+};
 </script>
