@@ -30,6 +30,7 @@ export const useAuthStore = defineStore("auth", {
       })
 
       const decodedToken = jwtDecode(this.token)
+      console.log(decodedToken)
 
       const metadata = await userFetchData(data.username)
       this.data = metadata.data.data
