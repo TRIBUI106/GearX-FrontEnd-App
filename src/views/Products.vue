@@ -160,6 +160,7 @@
 import { ref, onMounted, onUnmounted, watch, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useProductStore } from "@/stores/productStore";
+import { searchProductsApi } from "@/api/productApi";
 import ProductCardSkeleton from "@/components/ProductCardSkeleton.vue";
 import type { Product } from "@/models/Product";
 
@@ -203,13 +204,26 @@ const loadProducts = async (append = false) => {
   }
 
   try {
-    await productStore.initHomePageProducts();
-    const allProducts = productStore.products;
+    const response = await searchProductsApi({
+      q: (route.query.search as string) || "",
+      page: currentPage.value,
+      size: pageSize,
+      sortBy:
+        sortBy.value === "newest"
+          ? "created_at"
+          : sortBy.value.includes("price")
+            ? "price"
+            : "name",
+      dir: sortBy.value.includes("desc") ? "desc" : "asc",
+    });
 
-    // Simulate pagination (since API doesn't support it yet)
-    const start = (currentPage.value - 1) * pageSize;
-    const end = start + pageSize;
-    const newProducts = allProducts.slice(start, end);
+    // Extract data handling both structures
+    let newProducts: Product[] = [];
+    if (response.data?.data?.data) {
+      newProducts = response.data.data.data;
+    } else if (Array.isArray(response.data?.data)) {
+      newProducts = response.data.data;
+    }
 
     if (append) {
       products.value = [...products.value, ...newProducts];
@@ -217,7 +231,8 @@ const loadProducts = async (append = false) => {
       products.value = newProducts;
     }
 
-    hasMore.value = end < allProducts.length;
+    // Check if we have more pages (simple check based on page size return)
+    hasMore.value = newProducts.length === pageSize;
   } catch (error) {
     console.error("Error loading products:", error);
   } finally {

@@ -70,6 +70,7 @@ export const insertProductApi = async (data: {
     imageUrls?: string;
     isActive?: number;
     createdBy: string;
+    isDeleted?: number;
 }) => {
     return await apiService.post("product/insert", data);
 }
@@ -87,9 +88,9 @@ export const updateProductApi = async (productId: number, data: {
     compareAtPrice?: number;
     stockQuantity?: number;
     warrantyMonths?: number;
-    mainImageUrl?: string;
     imageUrls?: string;
     updatedBy: string;
+    isDeleted?: number;
 }) => {
     return await apiService.put(`product/update/${productId}`, data);
 }

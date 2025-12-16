@@ -15,4 +15,6 @@ export interface Product {
     warrantyMonths: number,
     mainImageUrl: string,
     imageUrls: string,
+    isActive?: number,
+    isDeleted?: number,
 }
