@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup>
-import BannerCarousel from '@/components/BannerCarousel.vue';
-import FeaturedCards from '@/components/FeaturedCards.vue'; 
+<script setup lang="ts">
+import BannerCarousel from "@/components/BannerCarousel.vue";
+import FeaturedCards from "@/components/FeaturedCards.vue";
 </script>
