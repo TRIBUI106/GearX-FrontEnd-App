@@ -5,11 +5,11 @@
         <!-- Logo -->
         <div class="flex items-center gap-8">
           <RouterLink to="/home" class="flex items-center gap-2">
-            <img
+            <!-- <img
               src="../../assets/images/favicon.ico"
               alt="GearX"
               class="h-8 w-8"
-            />
+            /> -->
             <span class="text-xl font-bold text-gray-900">GearX</span>
           </RouterLink>
 
