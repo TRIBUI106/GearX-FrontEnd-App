@@ -1,77 +1,116 @@
 <template>
-  <header class="bg-white">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <div class="flex-1 md:flex md:items-center md:gap-12">
-          <!-- Logo section -->
-          <RouterLink to="/home" class="block text-teal-600" href="#">
-            <span class="sr-only">Home</span>
+      <div class="flex h-16 items-center justify-between gap-4">
+        <!-- Logo -->
+        <div class="flex items-center gap-8">
+          <RouterLink to="/home" class="flex items-center gap-2">
             <img
               src="../../assets/images/favicon.ico"
-              alt=""
-              class="h-8"
-              viewBox="0 0 28 24"
-              fill="none"
+              alt="GearX"
+              class="h-8 w-8"
             />
+            <span class="text-xl font-bold text-gray-900">GearX</span>
           </RouterLink>
-        </div>
 
-        <div class="md:flex md:items-center md:gap-12">
-          <!-- Navigation menu -->
-          <nav aria-label="Global" class="hidden md:block">
-            <ul class="flex items-center gap-6 text-sm">
+          <!-- Desktop Navigation -->
+          <nav class="hidden md:block">
+            <ul class="flex items-center gap-6 text-sm font-medium">
               <li>
-                <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
-                  href="#"
-                  >About</a
+                <RouterLink
+                  to="/home"
+                  class="text-gray-700 hover:text-blue-600 transition-colors"
+                  >Trang chủ</RouterLink
+                >
+              </li>
+              <li>
+                <RouterLink
+                  to="/products"
+                  class="text-gray-700 hover:text-blue-600 transition-colors"
+                  >Sản phẩm</RouterLink
                 >
               </li>
               <li>
                 <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
                   href="#"
-                  >Careers</a
+                  class="text-gray-700 hover:text-blue-600 transition-colors"
+                  >Thương hiệu</a
                 >
               </li>
               <li>
                 <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
                   href="#"
-                  >History</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
-                  href="#"
-                  >Services</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
-                  href="#"
-                  >Projects</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-gray-500 transition hover:text-gray-500/75"
-                  href="#"
-                  >Blog</a
+                  class="text-gray-700 hover:text-blue-600 transition-colors"
+                  >Khuyến mãi</a
                 >
               </li>
             </ul>
           </nav>
+        </div>
 
-          <!-- Avatar dropdown -->
+        <!-- Search Bar (Desktop) -->
+        <div class="hidden md:flex flex-1 max-w-md mx-4">
+          <div class="relative w-full">
+            <input
+              type="text"
+              v-model="searchQuery"
+              @keyup.enter="handleSearch"
+              placeholder="Tìm kiếm sản phẩm..."
+              class="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 pr-10 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            />
+            <button
+              @click="handleSearch"
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600"
+            >
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-4">
+          <!-- Cart Icon -->
+          <button
+            class="relative hidden md:block text-gray-700 hover:text-blue-600 transition-colors"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+            <span
+              class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-xs text-white"
+              >0</span
+            >
+          </button>
+
+          <!-- Avatar Dropdown (Desktop) -->
           <div class="hidden md:block">
             <DropdownMenu>
               <DropdownMenuTrigger as-child>
                 <button
                   type="button"
-                  class="overflow-hidden rounded-full border border-gray-300 shadow-inner"
+                  class="overflow-hidden rounded-full border-2 border-gray-200 hover:border-blue-500 transition-colors"
                 >
                   <span class="sr-only">Toggle dashboard menu</span>
                   <img
@@ -102,7 +141,7 @@
                         d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                       />
                     </svg>
-                    My profile
+                    Tài khoản
                   </RouterLink>
                 </DropdownMenuItem>
 
@@ -131,7 +170,7 @@
                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                       />
                     </svg>
-                    Trang Quản Trị
+                    Quản trị
                   </RouterLink>
                 </DropdownMenuItem>
 
@@ -155,7 +194,7 @@
                         d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
                       />
                     </svg>
-                    Logout
+                    Đăng xuất
                   </button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -163,131 +202,140 @@
           </div>
 
           <!-- Mobile menu button -->
-          <div class="block md:hidden">
-            <button
-              @click="toggleMobileMenu"
-              class="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+          <button
+            @click="toggleMobileMenu"
+            class="md:hidden rounded-lg p-2 text-gray-600 hover:bg-gray-100 transition-colors"
+          >
+            <svg
+              v-if="!isMobileMenuOpen"
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                v-if="!isMobileMenuOpen"
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              <svg
-                v-else
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+            <svg
+              v-else
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
         </div>
       </div>
 
-      <!-- Mobile menu dropdown -->
-      <div v-if="isMobileMenuOpen" class="md:hidden">
-        <div class="space-y-1 px-2 pb-3 pt-2">
-          <a
-            href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            >About</a
+      <!-- Mobile Search Bar -->
+      <div class="md:hidden pb-3">
+        <div class="relative">
+          <input
+            type="text"
+            v-model="searchQuery"
+            @keyup.enter="handleSearch"
+            placeholder="Tìm kiếm sản phẩm..."
+            class="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 pr-10 text-sm focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          />
+          <button
+            @click="handleSearch"
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600"
           >
-          <a
-            href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            >Careers</a
-          >
-          <a
-            href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            >History</a
-          >
-          <a
-            href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            >Services</a
-          >
-          <a
-            href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            >Projects</a
-          >
-          <a
-            href="#"
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-            >Blog</a
-          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
 
-          <!-- Mobile user menu -->
-          <div class="border-t border-gray-200 pt-4">
-            <div class="flex items-center px-3">
-              <div class="flex-shrink-0">
-                <img
-                  src="../../assets/images/gx-circle.png"
-                  alt=""
-                  class="size-8 rounded-full"
+      <!-- Mobile menu -->
+      <div
+        v-if="isMobileMenuOpen"
+        class="md:hidden border-t border-gray-200 py-3"
+      >
+        <nav class="space-y-1">
+          <RouterLink
+            to="/home"
+            class="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+            @click="toggleMobileMenu"
+            >Trang chủ</RouterLink
+          >
+          <RouterLink
+            to="/products"
+            class="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+            @click="toggleMobileMenu"
+            >Sản phẩm</RouterLink
+          >
+          <a
+            href="#"
+            class="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+            >Thương hiệu</a
+          >
+          <a
+            href="#"
+            class="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+            >Khuyến mãi</a
+          >
+        </nav>
+
+        <!-- Mobile user menu -->
+        <div class="border-t border-gray-200 mt-3 pt-3">
+          <div class="space-y-1">
+            <RouterLink
+              to="/user/profile"
+              class="block rounded-lg px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+              @click="toggleMobileMenu"
+              >Tài khoản</RouterLink
+            >
+            <!-- Admin Dashboard Link (Mobile) -->
+            <RouterLink
+              v-if="authStore.isAdmin"
+              to="/admin"
+              class="block rounded-lg px-3 py-2 text-base font-medium hover:bg-gray-100"
+              @click="toggleMobileMenu"
+              >Quản trị</RouterLink
+            >
+            <button
+              @click="handleLogout"
+              class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-red-700 hover:bg-red-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
                 />
-              </div>
-              <div class="ml-3">
-                <div class="text-base font-medium text-gray-800">User Name</div>
-                <div class="text-sm font-medium text-gray-500">
-                  user@example.com
-                </div>
-              </div>
-            </div>
-            <div class="mt-3 space-y-1">
-              <RouterLink
-                to="/user/profile"
-                class="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                >My profile</RouterLink
-              >
-              <!-- Admin Dashboard Link (Mobile) -->
-              <RouterLink
-                v-if="authStore.isAdmin"
-                to="/admin"
-                class="block rounded-md px-3 py-2 text-base font-medium hover:bg-blue-50"
-                >Trang Quản Trị</RouterLink
-              >
-              <button
-                @click="handleLogout"
-                class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-red-700 hover:bg-red-50"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-4"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-                  />
-                </svg>
-                Logout
-              </button>
-            </div>
+              </svg>
+              Đăng xuất
+            </button>
           </div>
         </div>
       </div>
@@ -308,10 +356,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/authStore";
-import { RouterLink } from "vue-router";
-import router from "@/router";
+import { RouterLink, useRouter } from "vue-router";
 
 const isMobileMenuOpen = ref(false);
+const searchQuery = ref("");
+const router = useRouter();
 
 const authStore = useAuthStore();
 
@@ -325,6 +374,16 @@ onMounted(() => {
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
+
+const handleSearch = () => {
+  if (searchQuery.value.trim()) {
+    router.push({
+      name: "products",
+      query: { search: searchQuery.value.trim() },
+    });
+    isMobileMenuOpen.value = false;
+  }
 };
 
 const handleLogout = async () => {
