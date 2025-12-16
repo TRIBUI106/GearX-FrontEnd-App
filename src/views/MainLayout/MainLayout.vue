@@ -268,11 +268,12 @@ const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
 
-const handleLogout = () => {
+const handleLogout = async () => {
   const token = Cookie.get("token");
   if (token) {
-    authStore.logout(token);
-    router.push("/");
+    if (await authStore.logout(token)) {
+      router.push("/");
+    }
   }
 };
 </script>
