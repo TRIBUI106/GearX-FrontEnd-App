@@ -4,6 +4,7 @@ import { authLogout } from "@/api/authApi"
 import { toast } from "vue-sonner"
 import Cookies from 'js-cookie'
 import { userFetchData } from "@/api/userApi"
+import { jwtDecode } from "jwt-decode"
 
 export const useAuthStore = defineStore("auth", {
 
@@ -27,6 +28,8 @@ export const useAuthStore = defineStore("auth", {
         path: '/',
         sameSite: 'Strict'
       })
+
+      const decodedToken = jwtDecode(this.token)
 
       const metadata = await userFetchData(data.username)
       this.data = metadata.data.data
