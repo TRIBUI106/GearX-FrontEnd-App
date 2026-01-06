@@ -6,7 +6,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
-    vue(), 
+    vue(),
     vueDevTools(),
     tailwindcss()
   ],
